@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tic-Tac-Toe</title>
+    <style>
+      .cell {
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 200px;
+        font-size: 100px;
+        margin: 5px;
+      }
+
+      #board {
+        float: left;
+      }
+
+      #scoreboard-container {
+        float: left;
+        margin-left: 20px;
+        font-size: 18px;
+        text-align: center;
+      }
+
+      #container {
+        display: grid;
+        grid-template-columns: auto auto;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="board">
+        <div>
+          <div class="cell" data-row="0" data-col="0"></div>
+          <div class="cell" data-row="0" data-col="1"></div>
+          <div class="cell" data-row="0" data-col="2"></div>
+        </div>
+        <div>
+          <div class="cell" data-row="1" data-col="0"></div>
+          <div class="cell" data-row="1" data-col="1"></div>
+          <div class="cell" data-row="1" data-col="2"></div>
+        </div>
+        <div>
+          <div class="cell" data-row="2" data-col="0"></div>
+          <div class="cell" data-row="2" data-col="1"></div>
+          <div class="cell" data-row="2" data-col="2"></div>
+        </div>
+      </div>
+      <div id="scoreboard-container">
+        <div id="scoreboard">
+          <div>Player X: <span id="playerXScore">0</span></div>
+          <div>Player O: <span id="playerOScore">0</span></div>
+          <div>Draws: <span id="drawScore">0</span></div>
+        </div>
+        <div id="result"></div>
+      </div>
+      <button id="restartButton">Restart Game</button>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+      <script>
+        const socket = io();
+  
+        const cells = document.querySelectorAll('.cell');
+        const resultDiv = document.getElementById('result');
+        const restartButton = document.getElementById('restartButton');
+        const playerXScoreSpan = document.getElementById('playerXScore');
+        const playerOScoreSpan = document.getElementById('playerOScore');
+        const drawScoreSpan = document.getElementById('drawScore');
+  
+        let playerXScore = 0;
+        let playerOScore = 0;
+        let drawScore = 0;
+  
+        cells.forEach((cell) => {
+          cell.addEventListener('click', () => {
+            const row = cell.dataset.row;
+            const col = cell.dataset.col;
+            if (cell.textContent === '') {
+              socket.emit('make_move', { row: parseInt(row), col: parseInt(col) });
+            }
+          });
+        });
+  
+        socket.on('move_made', (data) => {
+          const cell = document.querySelector(`.cell[data-row="${data.row}"][data-col="${data.col}"]`);
+          cell.textContent = data.player;
+        });
+  
+        socket.on('game_won', (data) => {
+          const resultDiv = document.getElementById('result');
+          resultDiv.textContent = `Player ${data.winner} wins!`;
+          if (data.winner === 'X') {
+            playerXScore++;
+            playerXScoreSpan.textContent = playerXScore;
+          } else {
+            playerOScore++;
+            playerOScoreSpan.textContent = playerOScore;
+          }
+        });
+  
+        socket.on('game_drawn', () => {
+          resultDiv.textContent = "It's a draw!";
+          drawScore++;
+          drawScoreSpan.textContent = drawScore;
+        });
+  
+        restartButton.addEventListener('click', () => {
+          socket.emit('restart_game');
+        });
+  
+        socket.on('game_restarted', () => {
+          resultDiv.textContent = '';
+          cells.forEach((cell) => {
+            cell.textContent = '';
+          });
+        });
+      </script>
+    </div>
+    
+  </body>
+</html>
