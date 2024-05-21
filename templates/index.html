@@ -1,42 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='game_style.css') }}" />
     <title>Tic-Tac-Toe</title>
-    <style>
-      .cell {
-        width: 200px;
-        height: 200px;
-        border: 1px solid black;
-        display: inline-block;
-        text-align: center;
-        vertical-align: middle;
-        line-height: 200px;
-        font-size: 100px;
-        margin: 5px;
-      }
-
-      #board {
-        float: left;
-      }
-
-      #scoreboard-container {
-        float: left;
-        margin-left: 20px;
-        font-size: 18px;
-        text-align: center;
-      }
-
-      #container {
-        display: grid;
-        grid-template-columns: auto auto;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-    </style>
   </head>
   <body>
+    <h1>Tic-Tac-Toe Game</h1>
     <div id="container">
+      <p>Welcome to the Tic-Tac-Toe game. Please make sure that there are 2 instances of http://127.0.0.1:5000/ running. <br>
+        To restart the game please click on the 'Restart Game' button.<br>
+        <u>Please note:</u> The server and server calls are the same for both players, and only picked cells are disabled. So if a player picks two cells one after the other they will
+        place both 'X' and 'O'.</p>
       <div id="board">
         <div>
           <div class="cell" data-row="0" data-col="0"></div>
