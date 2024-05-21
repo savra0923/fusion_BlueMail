@@ -12,7 +12,16 @@
       <p>Welcome to the Tic-Tac-Toe game. Please make sure that there are 2 instances of http://127.0.0.1:5000/ running. <br>
         To restart the game please click on the 'Restart Game' button.<br>
         <u>Please note:</u> The server and server calls are the same for both players, and only picked cells are disabled. So if a player picks two cells one after the other they will
-        place both 'X' and 'O'.</p>
+        place both 'X' and 'O'.
+      </p>
+      <div id="scoreboard-container">
+        <div id="scoreboard">
+          <div>Player X: <span id="playerXScore">0</span></div>
+          <div>Player O: <span id="playerOScore">0</span></div>
+          <div>Draws: <span id="drawScore">0</span></div>
+        </div>
+        <div id="result"></div>
+      </div>
       <div id="board">
         <div>
           <div class="cell" data-row="0" data-col="0"></div>
@@ -30,16 +39,7 @@
           <div class="cell" data-row="2" data-col="2"></div>
         </div>
       </div>
-      <div id="scoreboard-container">
-        <div id="scoreboard">
-          <div>Player X: <span id="playerXScore">0</span></div>
-          <div>Player O: <span id="playerOScore">0</span></div>
-          <div>Draws: <span id="drawScore">0</span></div>
-        </div>
-        <div id="result"></div>
-      </div>
       <button id="restartButton">Restart Game</button>
-      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
       <script src="{{ url_for('static', filename='js/game_script.js') }}"></script>
     </div>

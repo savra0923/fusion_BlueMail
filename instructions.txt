@@ -1,14 +1,17 @@
-Your task is to build a traditional X and O game (Tic-tac-toe) that allows two players to play against each other in real-time. One player should be able to make a move on one browser, and the other player should be able to see that move on their browser. The game should be built with a backend technology of your choice, and the game board can be displayed on either:
+Your task is to build a traditional X and O game (Tic-tac-toe) that allows two players to play against each other in real-time.
+One player should be able to make a move on one browser, and the other player should be able to see that move on their browser.
+The game should be built with a backend technology of your choice, and the game board can be displayed on either:
 
 - a simple UI (any framework is welcome or pure js)
-
 - browser console
-
 - Postman http requests
 
 
 
-The client-side should be responsible for displaying the game board and accepting user input, while the server-side should handle the game logic, player moves, and game state. You should explain how you structured your game, what entities were used, the basic flow, and how you checked for the win condition after each move in the README file. Please provide simple instructions of how to run the game, both server side and client side (be it UI or just http requests).
+The client-side should be responsible for displaying the game board and accepting user input, while the server-side should handle the game logic, 
+player moves, and game state.
+You should explain how you structured your game, what entities were used, the basic flow, and how you checked for the win condition
+after each move in the README file. Please provide simple instructions of how to run the game, both server side and client side (be it UI or just http requests).
 
 
 
